@@ -10,7 +10,6 @@ interface Product {
   image: string;
   category: number;
   quantity: number;
-  // Các trường khác giữ nguyên
 }
 
 const API_URL = 'http://localhost:3000/products';
@@ -24,8 +23,8 @@ const editingProduct = ref<Product>({
   quantity: 0
 });
 const showModal = ref(false);
+const imageFile = ref<File | null>(null);
 
-// Lấy danh sách sản phẩm
 const fetchProducts = async () => {
   try {
     const res = await axios.get(API_URL);
@@ -35,15 +34,12 @@ const fetchProducts = async () => {
   }
 };
 
-// Xử lý upload ảnh
-const handleImageUpload = (e: Event) => {
-  const input = e.target as HTMLInputElement;
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      editingProduct.value.image = event.target?.result as string;
-    };
-    reader.readAsDataURL(input.files[0]);
+const handleImageUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (file) {
+    imageFile.value = file;
+    editingProduct.value.image = URL.createObjectURL(file); // Preview tạm ảnh
   }
 };
 
@@ -55,12 +51,14 @@ const saveProduct = async () => {
       return;
     }
 
+    const payload = { ...editingProduct.value };
+
     if (editingProduct.value.id) {
-      await axios.put(`${API_URL}/${editingProduct.value.id}`, editingProduct.value);
+      await axios.put(`${API_URL}/${editingProduct.value.id}`, payload);
     } else {
-      await axios.post(API_URL, editingProduct.value);
+      await axios.post(API_URL, payload);
     }
-    
+
     await fetchProducts();
     showModal.value = false;
     resetForm();
@@ -69,7 +67,6 @@ const saveProduct = async () => {
   }
 };
 
-// Reset form
 const resetForm = () => {
   editingProduct.value = {
     name: '',
@@ -79,9 +76,9 @@ const resetForm = () => {
     category: 1,
     quantity: 0
   };
+  imageFile.value = null;
 };
 
-// Mở modal chỉnh sửa
 const openEditModal = (product?: Product) => {
   if (product) {
     editingProduct.value = { ...product };
@@ -91,7 +88,6 @@ const openEditModal = (product?: Product) => {
   showModal.value = true;
 };
 
-// Xóa sản phẩm
 const deleteProduct = async (id: number) => {
   if (confirm('Bạn chắc chắn muốn xóa?')) {
     try {
@@ -134,7 +130,6 @@ onMounted(() => {
       </tbody>
     </table>
 
-    <!-- Modal thêm/sửa sản phẩm -->
     <div v-if="showModal" class="modal" style="display: block; background: rgba(0,0,0,0.5)">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -145,16 +140,28 @@ onMounted(() => {
           <div class="modal-body">
             <div class="mb-3">
               <label class="form-label">Tên sản phẩm</label>
-              <input v-model="editingProduct.name" class="form-control" required>
+              <input v-model="editingProduct.name" class="form-control" required />
             </div>
             <div class="mb-3">
               <label class="form-label">Giá</label>
-              <input v-model.number="editingProduct.price" type="number" class="form-control" required>
+              <input v-model.number="editingProduct.price" type="number" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Giảm giá</label>
+              <input v-model.number="editingProduct.discounted" type="number" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Số lượng</label>
+              <input v-model.number="editingProduct.quantity" type="number" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Danh mục (ID)</label>
+              <input v-model.number="editingProduct.category" type="number" class="form-control" />
             </div>
             <div class="mb-3">
               <label class="form-label">Ảnh sản phẩm</label>
-              <input type="file" @change="handleImageUpload" class="form-control" accept="image/*">
-              <img v-if="editingProduct.image" :src="editingProduct.image" width="100" class="mt-2">
+              <input type="file" class="form-control mb-2" @change="handleImageUpload" />
+              <img v-if="editingProduct.image" :src="editingProduct.image" width="100" class="mt-2" />
             </div>
           </div>
           <div class="modal-footer">

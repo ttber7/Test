@@ -122,50 +122,6 @@ let typedInstance: Typed | null = null; // Declare typedInstance as a typed.js o
 
                 </div>  
                 <div class="carousel-inner">  
-                    <!-- First carousel item -->  
-                    <!-- <div class="carousel-item active ms-3">  
-                        <div class="container-fluid row ">  
-                            <div class="col-lg-4">  
-                                <div class="text-center img-fluid rounded-4 product-cons-color">  
-                                    <img src="../../public/images/hero-slider-1.jpg" alt="Slide 1" class="w-100 mb-5">  
-                                    
-                                </div>  
-                            </div>  
-                            <div class="col-lg-4">  
-                                <div class="text-center img-fluid rounded-4 product-cons-color">  
-                                    <img src="/images/hero-slider-2.jpg" alt="Slide 2" class="w-100 mb-5">  
-                                </div>  
-                            </div>  
-                            <div class="col-lg-4">  
-                                <div class="text-center img-fluid rounded-4 product-cons-color">  
-                                    <img src="/images/hero-slider-3.jpg" alt="Slide 3" class="w-100 mb-5">  
-                                </div>  
-                            </div>  
-                        </div>  
-                    </div>   -->
-                    <!-- Second carousel item -->  
-                    <!-- <div class="carousel-item ms-3">  
-                        <div class="container-fluid row">  
-                            <div class="col-lg-4">  
-                                <div class="text-center img-fluid rounded-4 product-cons-color">  
-                                    <img src="/images/hero-slider-4.jpg" alt="Slide 4" class="w-100 mb-5">  
-                                </div>  
-                            </div>  
-                            <div class="col-lg-4">  
-                                <div class="text-center img-fluid rounded-4 product-cons-color">  
-                                    <img src="/images/hero-slider-5.jpg" alt="Slide 5" class="w-100 mb-5">  
-                                </div>  
-                            </div>  
-                            <div class="col-lg-4">  
-                                <div class="text-center img-fluid rounded-4 product-cons-color">  
-                                    <img src="../../public/images/hero-slider-1.jpg" alt="Slide 1" class="w-100 mb-5">
-                                      
-                                </div>  
-                            </div>  
-                        </div>  
-                    </div>  
-                </div>   -->
-                <!-- Carousel controls -->  
                 <button class="carousel-control-prev  " type="button" data-bs-target="#carouselExample" data-bs-slide="prev">  
                     <span ><i class="bi bi-arrow-left-circle"></i></span>  
                     <span class="visually-hidden">Previous</span>  

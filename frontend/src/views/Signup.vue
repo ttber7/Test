@@ -44,21 +44,18 @@ const { value: fullname } = useField('fullname');
 const { value: address } = useField('address');
 const { value: phone } = useField('phone');
 
-const register = handleSubmit(async (values) => {  
-    // Kiểm tra email đã tồn tại hay chưa  
+const register = handleSubmit(async (values) => {   
     const existingUsers = await fetch(`http://localhost:3000/user?email=${values.email}`)  
         .then(response => response.json());  
-    
-    // Nếu email đã tồn tại, thông báo lỗi  
+     
     if (existingUsers.length > 0) {  
         alert("Email đã tồn tại");  
         return;  
     }  
-
-    // Mã hóa mật khẩu  
+ 
     const hashedPassword = await bcrypt.hash(values.password, 10);  
 
-    // Gửi yêu cầu đăng ký người dùng mới  
+   
     const response = await fetch('http://localhost:3000/user', {  
         method: "POST",  
         headers: {  
@@ -70,11 +67,10 @@ const register = handleSubmit(async (values) => {
             fullname: values.fullname,
             phone: values.phone,
             address: values.address,
-            role: values.role || 'user' // Mặc định là 'user' nếu không có giá trị
+            role: values.role || 'user' 
         }),  
     });  
     
-    // Kiểm tra phản hồi từ server  
     if (response.ok) {  
         alert('Đăng ký thành công'); 
         router.push('/'); 

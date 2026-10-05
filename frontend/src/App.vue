@@ -48,6 +48,11 @@ const isAdmin = computed(() => userRole.value === 'admin');
             </li>  
             <li class="nav-item">  
               <RouterLink class="nav-link" to="/contact">Liên Hệ</RouterLink>  
+            </li>
+            <li class="nav-item">  
+              <RouterLink class="nav-link" v-if="isAuthenticated && isAdmin" to="/productManagement"> Products Management</RouterLink>
+            </li><li class="nav-item">  
+              <RouterLink  v-if="isAuthenticated && isAdmin" class="nav-link" to="/categoriesManagement">Categories Management</RouterLink>
             </li>  
           </ul> 
             <div class="ms-auto d-flex">

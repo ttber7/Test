@@ -200,6 +200,15 @@
       "phone": 123456789,
       "address": "Q12. TP HCM",
       "role": "admin"
+    },
+    {
+      "id": "0542",
+      "email": "teo123@gmail.com",
+      "password": "$2a$10$8t7XOXjQng7qSEbj1tg56OgM8896.E1Lbqoxj3KE/mTOXduU0Y4YW",
+      "fullname": "teo",
+      "phone": 1234567890,
+      "address": "Q21",
+      "role": "user"
     }
   ]
 }
